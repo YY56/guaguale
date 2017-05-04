@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>刮刮乐</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#con{
+			position: relative;
+			width: 450px;
+			height: 280px;
+			margin: 100px auto;
+		}
+		#txt{
+			box-sizing:border-box;
+			width: 450px;
+			height: 280px;
+			border: 15px dotted #000;
+			font-size: 50px;
+			font-family: 微软雅黑;
+			text-align: center;
+			line-height: 250px;
+
+		}
+		#cvs{
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+	<div id="con">
+		<div id="txt">再来一瓶</div>
+		<canvas id="cvs" width="450" height="280"></canvas>
+		<script>
+			var con = document.getElementById('con');
+			var txt = document.getElementById('txt');
+			var cvs = document.getElementById('cvs');
+			var ctx = cvs.getContext('2d');
+			var img = document.createElement('img');
+			img.src = 'image/gua.jpg';
+
+			var arr=['再买一瓶','买一箱送一枚女','谢谢惠顾','免费送一杯热饮','谢谢惠顾','谢谢惠顾','再买一瓶','买一箱送一枚女','谢谢惠顾','免费送一杯热饮',];
+			var s=Math.floor(Math.random()*10);//0-18
+			txt.innerHTML=arr[s];
+
+			img.onload = function () {	
+				ctx.beginPath();
+				ctx.drawImage(img,0,0);
+				ctx.closePath();
+			}
+
+
+			var x = 0,y = 0;
+			cvs.onmousedown = function (e) {
+				e.preventDefault();
+				ctx.globalCompositeOperation='destination-out';
+				document.onmousemove = function (e) {
+					x=e.clientX-con.offsetLeft;
+					y=e.clientY-con.offsetTop;
+					ctx.beginPath();
+					ctx.arc(x,y,10,0,2*Math.PI,false);
+					ctx.fill();
+					ctx.closePath();
+				}
+				document.onmouseup=function (){
+					document.onmousemove=null;
+				}
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</script>
+	</div>
+	
+</body>
+</html>
